@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+    
+        <title>jwerty - Awesome handling of keyboard events</title>
+    
+        <style type="text/css">
+            html {
+                margin: 0;
+                font-family: sans-serif;
+                background: #f9f9f9;
+            }
+            body {
+                width: 960px;
+                margin: 0 auto;
+                padding: 25px;
+                border: 0;
+                -webkit-box-shadow: 0 2px 5px #ccc;
+            }
+            a {
+                color: #6CBFB5;
+            }
+            
+            
+            #main {
+                display: block;
+                width: 500px;
+                margin: 0 0 0 20px;
+                color: #333;
+                font-size: 14px;
+            }
+            
+            #main h2, #download a {
+                border: 0 dashed #ddd;
+                border-bottom-width: 1px;
+            }
+            
+            #download {
+                font-size: 13px;
+                float: right;
+                width: 300px;
+            }
+            
+            #download a {
+                margin: 10px 0;
+                display: block;
+                text-decoration: none;
+                padding: 4px;
+            }
+            
+            #download span {
+                color: #333;
+            }
+            
+            .key {
+                min-width: 18px;
+                height: 18px;
+                margin: 2px;
+                padding: 2px;
+                
+                text-align: center;
+                font: 14px/18px sans-serif;
+                color: #777;
+                
+                background: #EFF0F2;
+                border-top: 1px solid #F5F5F5;
+                text-shadow: 0px 1px 0px #F5F5F5;
+                -webkit-box-shadow: inset 0 0 25px #eee, 0 1px 0 #c3c3c3, 0 2px 0 #c9c9c9, 0 2px 3px #333;
+                -moz-box-shadow: inset 0 0 25px #eee, 0 1px 0 #c3c3c3, 0 2px 0 #c9c9c9, 0 2px 3px #333;
+                box-shadow: inset 0 0 25px #eee, 0 1px 0 #c3c3c3, 0 2px 0 #c9c9c9, 0 2px 3px #333;
+                
+                display: inline-block;
+                
+                -moz-border-radius: 1px;
+                border-radius: 1px;
+            }
+            
+            h1 .key {
+                width: 42px;
+                height: 40px;
+                font: 15px/40px sans-serif;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+            }
+                
+            header h1 {
+                float: left;
+            }
+            
+            header h2 {
+                float: right;
+                color: #ccc;
+                font: normal 20px/60px sans-serif;
+            }
+            
+            hr {
+                clear: both;
+                border: 0 dashed #ddd;
+                border-top-width: 1px;
+            }
+            
+            #howto p {
+                margin: 0;
+            }
+            
+            code .key {
+                margin: 2px 4px;
+            }
+            
+            pre { margin: 0 0 10px 0; }
+            code { font-size: 13px; }
+            code b { color: #A7674B; font-weight: normal; }
+            code .kw { color: #4F8949; }
+            code .s { color: #D15D98; }
+            code .c { color: #AAAAAA; }
+            code .v { color: #6441C1; }
+        </style>
+    </head>
+
+    <body>
+  
+        <header>
+            <h1>
+                <b class="key">J</b>
+                <b class="key">w</b>
+                <b class="key">e</b>
+                <b class="key">r</b>
+                <b class="key">t</b>
+                <b class="key">y</b>
+            </h1>
+            <h2> Awesome handling of keyboard events </h2>
+        </header>
+        
+        <hr>
+        
+        <div id="download">
+            <a href="http://github.com/keithamus/jwerty/zipball/master" id="dlzip">
+                Download as Zip <span>(
+                    <b class="key">ctrl</b> +
+                    <b class="key">alt</b> +
+                    <b class="key">z</b>
+                )</span>
+            </a>
+            <a href="http://github.com/keithamus/jwerty/tarball/master" id="dltar">
+                Download as Tar <span>(
+                    <b class="key">ctrl</b> +
+                    <b class="key">alt</b> +
+                    <b class="key">shift</b> +
+                    <b class="key">z</b>
+                )</span>
+            </a>
+            <a href="http://github.com/keithamus/jwerty" id="dlhub">
+                See sourcecode in GitHub <span>(
+                    <b class="key">ctrl</b> +
+                    <b class="key">alt</b> +
+                    <b class="key">g</b>
+                )</span>
+            </a>
+            <a href="git://github.com/keithamus/jwerty" id="dlgit">
+                Download in Git <span>(
+                    <b class="key">ctrl</b> +
+                    <b class="key">alt</b> +
+                    <b class="key">shift</b> +
+                    <b class="key">g</b>
+                )</span>
+            </a>
+        </div>
+        
+        
+        <div id="main">
+            <div id="maindescr">
+                <p>
+                    jwerty is a JS lib which allows you to bind, fire and assert
+                    key combination strings against elements and events. It
+                    normalises the poor std api into something easy to use and
+                    clear.
+                </p>
+                <p>
+                    jwerty is a small library, weighing in at around 1.5kb bytes
+                    minified and gzipped (~3kb minified). jwerty has no
+                    dependencies, but is compatible with jQuery, Zepto or Ender
+                    if you include those packages alongside it.
+                </p>
+                <p>
+                    jwerty is fully tested using QUnit, 
+                    <a href="test/index.html">
+                        check out the test suite.
+                    </a> 
+                </p>
+                <p>
+                    <a href="https://github.com/keithamus/jwerty/blob/master/README-DETAILED.md">
+                        For detailed docs, please read the detailed README.
+                    </a> 
+                </p>
+            </div>
+            <div id="howto">
+                <h2>How to use</h2>
+                
+                <p>
+                    Use `jwerty.key` to bind your callback to a key combo
+                    (global shortcuts)
+                </p>
+                
+                <pre><code>
+<b class="kw">jwerty.key</b><b>(</b>'<b class="s"><b class="key">ctrl</b>+<b class="key">shift</b>+<b class="key">P</b></b>'<b>,</b> <b class="kw">function</b> <b>() {</b> <b class="c">[...]</b> <b>});</b>
+<b class="kw">jwerty.key</b><b>(</b>'<b class="s"><b class="key">⌃</b>+<b class="key">⇧</b>+<b class="key">P</b></b>'<b>,</b> <b class="kw">function</b> <b>() {</b> <b class="c">[...]</b> <b>});</b></code></pre>
+    
+                <p>
+                    Specify optional keys...
+                </p>
+
+                <pre><code>
+<b class="kw">jwerty.key</b><b>(</b>'<b class="s"><b class="key">⌃</b>+<b class="key">⇧</b>+<b class="key">P</b>/<b class="key">⌘</b>+<b class="key">⇧</b>+<b class="key">P</b></b>'<b>,</b> <b class="kw">function</b> <b>() {</b> <b class="c">[...]</b> <b>});</b></code></pre>
+    
+                <p>
+                    or key sequences.
+                </p>
+
+                <pre><code>
+<b class="kw">jwerty.key</b><b>(</b>'<b class="s"><b class="key">↑</b>,<b class="key">↑</b>,<b class="key">↓</b>,<b class="key">↓</b>,<b class="key">←</b>,<b class="key">→</b>,<b class="key">←</b>,<b class="key">→</b>,<b class="key">B</b>,<b class="key">A</b>,<b class="key">↩</b></b>', <b class="kw">function</b> <b>() {</b> <b class="c">[...]</b> <b>});</b></code></pre>
+
+                <p>
+                    Pass in a context to bind your callback:
+                </p>
+
+                <pre><code>
+<b class="kw">jwerty.key</b>('<b class="s"><b class="key">⌃</b>+<b class="key">⇧</b>+<b class="key">P</b>/<b class="key">⌘</b>+<b class="key">⇧</b>+<b class="key">P</b></b>'<b>,</b> <b class="kw">function</b> <b>() {</b> <b class="c">[...]</b> <b>},</b> <b class="kw">this</b><b>);</b></code></pre>
+    
+                <p>
+                    Pass in a selector to bind a shortcut local to that
+                    element
+                </p>
+
+                <pre><code>
+<b class="kw">jwerty.key</b>('<b class="s"><b class="key">⌃</b>+<b class="key">⇧</b>+<b class="key">P</b>/<b class="key">⌘</b>+<b class="key">⇧</b>+<b class="key">P</b></b>'<b>,</b> <b class="kw">function</b> <b>() {</b> <b class="c">[...]</b> <b>},</b> <b class="kw">this</b><b>,</b> '<b class="s">#myinput</b>'<b>);</b></code></pre>
+    
+                <p>
+                    Pass in a selector's context, similar to jQuery's
+                    $('selector', 'scope')
+                </p>
+
+                <pre><code>
+<b class="kw">jwerty.key</b>('<b class="s"><b class="key">⌃</b>+<b class="key">⇧</b>+<b class="key">P</b>/<b class="key">⌘</b>+<b class="key">⇧</b>+<b class="key">P</b></b>'<b>,</b> <b class="kw">function</b> <b>() {</b> <b class="c">[...]</b> <b>},</b> <b class="kw">this</b>, '<b class="s">input.email</b>'<b>,</b> '<b class="s">#myForm</b>'<b>);</b></code></pre>
+    
+                <p>
+                    If you're bining to a selector, you can also ommit the
+                    function context:
+                </p>
+
+                <pre><code>
+<b class="kw">jwerty.key</b><b>(</b>'<b class="s"><b class="key">⌃</b>+<b class="key">⇧</b>+<b class="key">P</b>/<b class="key">⌘</b>+<b class="key">⇧</b>+<b class="key">P</b></b>'<b>,</b> <b class="kw">function</b> <b>() {</b> <b class="c">[...]</b> <b>},</b> '<b class="s">input.email</b>'<b>,</b> '<b class="s">#myForm</b>'<b>);</b></code></pre>
+    
+                <p>
+                    Use `jwerty.event` as a decorator, to bind events your own
+                    way:
+                </p>
+    
+                <pre><code>
+<b class="kw">$</b><b>(</b>'<b class="s">#myinput</b>'<b>).</b><b class="kw">bind</b><b>(</b>'<b class="s">keydown</b>'<b>,</b> <b class="kw"> .event</b><b>(</b>'<b class="s"><b class="key">⌃</b>+<b class="key">⇧</b>+<b class="key">P</b>/<b class="key">⌘</b>+<b class="key">⇧</b>+<b class="key">P</b></b>'<b>,</b> <b class="kw">function</b> <b>() {</b> <b class="c">[...]</b> <b>}));</b></code></pre>
+    
+                <p>
+                    Use `jwerty.is` to check a keyCombo against a keyboard
+                    event:
+                </p>
+
+                <pre><code>
+<b class="kw">function</b> <b>(</b><b class="v">event</b><b>) {</b>
+    <b class="kw">if</b> <b>(</b> <b class="kw">jwerty.is</b><b>(</b>'<b class="s"><b class="key">⌃</b>+<b class="key">⇧</b>+<b class="key">P</b></b>'<b>,</b> <b class="v">event</b><b>) ) {</b>
+        <b class="c">[...]</b>
+    <b>}</b>
+<b>}</b>
+</code></pre>
+
+                <p>
+                    Or use `jwerty.fire` to send keyboard events to other
+                    places:
+                </p>
+
+                <pre><code>
+<b class="kw">jwerty.fire</b><b>(</b>'<b class="key">enter</b>', '<b class="s">input:first-child</b>'<b>,</b> '<b class="s">#myForm</b>'<b>);</b>
+                </code></pre>
+                
+            </div>
+            <div id="authors">
+                <h2>Authors</h2>
+                <p>
+                    <img src="keithamus.jpg" style="float:left;margin-right: 10px;">
+                    jwerty is made by me, <b class="r">Keithamus</b>. Check out:<br>
+                        my <a href="http://github.com/keithamus">other GitHub projects</a><br>
+                        my <a href="http://keithcirkel.co.uk">website</a><br>
+                        my <a href="http://twitter.com/keithamus">twitter</a> page<br>
+                </p>
+                <br style="clear: both">
+            </div>
+        </div>
+        
+        <script type="text/javascript">
+                var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+                document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+            </script>
+            <script type="text/javascript">
+                try {
+                var pageTracker = _gat._getTracker("UA-26071822-1");
+                pageTracker._trackPageview();
+                } catch(err) {}
+            </script>
+        <script type="text/javascript" src="jwerty.js"></script>
+        <script type="text/javascript">
+            jwerty.key('ctrl+alt+z', function () {
+                console.log('Downloading zip...');
+                window.location = document.getElementById('dlzip').href;
+            });
+            jwerty.key('ctrl+alt+shift+z', function () {
+                console.log('Downloading tar...');
+                window.location = document.getElementById('dltar').href;
+            });
+            jwerty.key('ctrl+alt+shift+g', function () {
+                console.log('Opening git://...');
+                window.location = document.getElementById('dlgit').href;
+            });
+            jwerty.key('ctrl+alt+g', function () {
+                console.log('Redirecting to github...');
+                window.location = document.getElementById('dlhub').href;
+            });
+        </script>
+    </body>
+</html>
