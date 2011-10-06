@@ -110,7 +110,7 @@
             // END key, on Mac: ⇟
             '⇟': 35, end: 35,
             // HOME key, on Mac: ⇞
-            '⇞': 35, home: 36,
+            '⇞': 36, home: 36,
             // Insert key, or ins
             ins: 45, insert: 45,
             // Delete key, on Mac: ⌫ (Delete)
