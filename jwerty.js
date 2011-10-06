@@ -283,7 +283,8 @@
             
             // Construct a function out of callbackFunction, if it is a boolean.
             if (realTypeOf(callbackFunction, 'boolean')) {
-                callback = function () { return callbackContext; }
+                var bool = callbackFunction;
+                callbackFunction = function () { return bool; }
             }
             
             jwertyCode = new JwertyCode(jwertyCode);

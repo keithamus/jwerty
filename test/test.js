@@ -59,6 +59,24 @@ test("Test jwerty initialise", function () {
     expectKeyEvents(10);
 });
 
+test("Test jwerty fires on boolean callback", function () {
+    expect(1);
+    
+    var eventStub  = {}
+    ,   event1 = jwerty.event('a', false, this.input)
+    ,   event2 = jwerty.event('a', true, this.input);
+    
+    eventStub = {
+        keyCode: 65,
+        ctrlKey: false, shiftKey: false, altKey: false, metaKey: false,
+        preventDefault: function () {
+            ok(true, 'Prevent default was fired');
+        }
+    };
+    event1(eventStub);
+    event2(eventStub);
+});
+
 test("Test jwerty optional combos", function () {
     expect(3);
     
