@@ -193,10 +193,112 @@ test("Test jwerty sequence", function () {
     expectKeyEvents(26);
 });
 
+test("Test regex style number expansion", function () {
+    expect(11);
+    
+    jwerty.key('[0-9]', this.assertjwerty, this.input);
+    
+    // 0
+    buildEvent(48, false, false, false, false, this.input);
+    // 1
+    buildEvent(49, false, false, false, false, this.input);
+    // 2
+    buildEvent(50, false, false, false, false, this.input);
+    // 3
+    buildEvent(51, false, false, false, false, this.input);
+    // 4
+    buildEvent(52, false, false, false, false, this.input);
+    // 5
+    buildEvent(53, false, false, false, false, this.input);
+    // 6
+    buildEvent(54, false, false, false, false, this.input);
+    // 7
+    buildEvent(55, false, false, false, false, this.input);
+    // 8
+    buildEvent(56, false, false, false, false, this.input);
+    // 9
+    buildEvent(57, false, false, false, false, this.input);
+    
+    // None of these should fire
+    buildEvent(57, true, false, false, false, this.input);
+    buildEvent(57, true, true, false, false, this.input);
+    buildEvent(57, true, true, true, false, this.input);
+    buildEvent(57, true, true, true, true, this.input);
+    buildEvent(57, false, true, true, true, this.input);
+    buildEvent(58, false, false, false, false, this.input);
+    buildEvent(59, false, false, false, false, this.input);
+    buildEvent(47, false, false, false, false, this.input);
+    buildEvent(100, false, false, false, false, this.input);
+    
+    expectKeyEvents(19);
+});
+
+test("Test regex style number expansion for complex ranges", function () {
+    expect(11);
+    
+    jwerty.key('ctrl+[num-0-num-9]', this.assertjwerty, this.input);
+    
+    // 0
+    buildEvent(96, false, true, false, false, this.input);
+    // 1
+    buildEvent(97, false, true, false, false, this.input);
+    // 2
+    buildEvent(98, false, true, false, false, this.input);
+    // 3
+    buildEvent(99, false, true, false, false, this.input);
+    // 4
+    buildEvent(100, false, true, false, false, this.input);
+    // 5
+    buildEvent(101, false, true, false, false, this.input);
+    // 6
+    buildEvent(102, false, true, false, false, this.input);
+    // 7
+    buildEvent(103, false, true, false, false, this.input);
+    // 8
+    buildEvent(104, false, true, false, false, this.input);
+    // 9
+    buildEvent(105, false, true, false, false, this.input);
+    
+    
+    // None of these should fire
+    buildEvent(57, true, false, false, false, this.input);
+    buildEvent(57, true, true, false, false, this.input);
+    buildEvent(57, true, true, true, false, this.input);
+    buildEvent(57, true, true, true, true, this.input);
+    buildEvent(57, false, true, true, true, this.input);
+    buildEvent(58, false, false, false, false, this.input);
+    buildEvent(59, false, false, false, false, this.input);
+    buildEvent(47, false, false, false, false, this.input);
+    buildEvent(100, false, false, false, false, this.input);
+    
+    expectKeyEvents(19);
+});
+
+test("Test regex style number expansion for complex ranges (letters)", function () {
+    expect(4);
+    
+    jwerty.key('ctrl+[a-c]+shift', this.assertjwerty, this.input);
+    
+    // a
+    buildEvent(65, true, true, false, false, this.input);
+    // c
+    buildEvent(67, true, true, false, false, this.input);
+    // b
+    buildEvent(66, true, true, false, false, this.input);
+    
+    
+    // None of these should fire
+    buildEvent(68, true, true, false, false, this.input);
+    buildEvent(65, true, false, false, false, this.input);
+    buildEvent(57, true, true, false, false, this.input);
+    
+    expectKeyEvents(6);    
+});
+
 test("(Most importantly) test the konami code", function () {
     expect(2);
     
-    jwerty.key([['↑'], ['↑'], ['↓'], ['↓'], ['←'], ['→'], ['←'], ['→'], ['B'], ['A'], ['↩']], this.assertjwerty, this.input);
+    jwerty.key([['↑'], ['↑'], ['↓'], ['↓'], ['←'], ['→'], ['←'], ['→'], ['B'], ['a'], ['↩']], this.assertjwerty, this.input);
     
     // Up
     buildEvent(38, false, false, false, false, this.input);

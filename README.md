@@ -27,6 +27,10 @@ Specify optional keys...
 or key sequences.
 
     jwerty.key('↑,↑,↓,↓,←,→,←,→,B,A,↩', function () { [...] });
+
+You can also (since 0.3) specify regex-like ranges:
+
+    jwerty.key('ctrl+[a-c]', function () { [...] }); // fires for ctrl+a,ctrl+b or ctrl+c
     
 Pass in a context to bind your callback:
 

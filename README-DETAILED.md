@@ -29,6 +29,16 @@ so:
 You could also mix sequences and optionals:
 
     'ctrl+shift+p/cmd+shift+p, p'
+
+Also, since version 0.3, you can specify ranges:
+
+    'ctrl+shift+[0-9], ctrl+shift+[num-0-num-9]'
+
+This will automatically expand these to ctrl+shift+0, ctrl+shift+1 and so on.
+Because these are worked out on the keyboard keycodes, they'll work many types
+of ranges, such as:
+
+    '[f1-f11], [num-3-num-7], [a-c], [g-f], [←-↓]' // (the last one matches all arrow codes)
     
 If you have a complex pattern, it may be more readable to use an array literal
 to express the combination. If you express it as an array, then the top level
