@@ -37,6 +37,23 @@ module('jwerty', {
     
 });
 
+test("Test jwerty KEYS contain the correct keys", function () {
+    //Only test number/letter keys as the rest are not really worth testing, as
+    // one would have to just do basic assertions with an identical object
+    // literal as is in the code
+    
+    var keys = [
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
+        'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+    ];
+    
+    for (var i = 0, c = keys.length; i < c; ++i) {
+        equal(jwerty.KEYS.keys[keys[i].toLowerCase()], keys[i].charCodeAt(0), keys[i] + ' = ' + keys[i].charCodeAt(0));
+    }
+    
+});
+
 test("Test jwerty initialise", function () {
     expect(2);
     

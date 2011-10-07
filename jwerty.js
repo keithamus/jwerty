@@ -164,7 +164,7 @@
     }
     
     // To minimise code bloat, add all of the top row 0-9 keys in a loop
-    i = 48, n = 0;
+    i = 47, n = 0;
     while(++i < 58) {
         _keys.keys[n] = i;
         ++n;
