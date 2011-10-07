@@ -22,6 +22,22 @@
                 color: #6CBFB5;
             }
             
+            #version {
+                margin-left: 20px;
+                box-shadow: inset 0 0 25px #eee, 0 1px 0 #c3c3c3, 0 2px 0 #c9c9c9, 0 0 5px cyan, 0 2px 3px #333;
+                -moz-box-shadow: inset 0 0 25px #eee, 0 1px 0 #c3c3c3, 0 2px 0 #c9c9c9, 0 0 5px cyan, 0 2px 3px #333;
+                -webkit-box-shadow: inset 0 0 25px #eee, 0 1px 8px #86D1EC, 0 1px 0 #c3c3c3, 0 2px 0 #c9c9c9, 0 2px 3px #333;
+                text-shadow: 0 0 1px #86D1EC;
+                color: #6789A9;
+            }
+            
+            #version span {
+                font-size: 12px;
+                position: absolute;
+                line-height: 20px;
+                margin-left: -2px;
+            }
+            
             
             #main {
                 display: block;
@@ -128,6 +144,7 @@
                 <b class="key">r</b>
                 <b class="key">t</b>
                 <b class="key">y</b>
+                <b id="version" class="key">v<span>0.3</span></b>
             </h1>
             <h2> Awesome handling of keyboard events </h2>
         </header>
