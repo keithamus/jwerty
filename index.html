@@ -214,11 +214,25 @@
 <b class="kw">jwerty.key</b><b>(</b>'<b class="s"><b class="key">⌃</b>+<b class="key">⇧</b>+<b class="key">P</b>/<b class="key">⌘</b>+<b class="key">⇧</b>+<b class="key">P</b></b>'<b>,</b> <b class="kw">function</b> <b>() {</b> <b class="c">[...]</b> <b>});</b></code></pre>
     
                 <p>
-                    or key sequences.
+                    or key sequences...
                 </p>
 
                 <pre><code>
 <b class="kw">jwerty.key</b><b>(</b>'<b class="s"><b class="key">↑</b>,<b class="key">↑</b>,<b class="key">↓</b>,<b class="key">↓</b>,<b class="key">←</b>,<b class="key">→</b>,<b class="key">←</b>,<b class="key">→</b>,<b class="key">B</b>,<b class="key">A</b>,<b class="key">↩</b></b>', <b class="kw">function</b> <b>() {</b> <b class="c">[...]</b> <b>});</b></code></pre>
+                
+                <p>
+                    or regex-like key ranges.
+                </p>
+
+                <pre><code>
+<b class="kw">jwerty.key</b><b>(</b>'<b class="s"><b class="key">ctrl</b>+[<b class="key">0</b>-<b class="key">9</b>]</b></b>', <b class="kw">function</b> <b>() {</b> <b class="c">[...]</b> <b>});</b></code></pre>
+                
+                <p>
+                    or a mixture!
+                </p>
+
+                <pre><code>
+<b class="kw">jwerty.key</b><b>(</b>'<b class="s"><b class="key">ctrl</b>+[<b class="key">0</b>-<b class="key">9</b>],<b class="key">f</b>/<b class="key">h</b></b></b>', <b class="kw">function</b> <b>() {</b> <b class="c">[...]</b> <b>});</b></code></pre>
 
                 <p>
                     Pass in a context to bind your callback:
