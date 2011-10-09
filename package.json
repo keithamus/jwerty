@@ -1,6 +1,6 @@
 {
    "name": "jwerty",
-   "version": "0.1.0",
+   "version": "0.3.0",
    "description": "Awesome handling of keyboard events",
    "homepage": "http://keithamus.github.com/jwerty",
    "keywords": [ "key", "dom", "keyup", "KeyboardEvent", "addEventListener", "jQuery", "Zepto", "browser", "ender" ],
