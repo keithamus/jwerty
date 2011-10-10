@@ -526,6 +526,39 @@ test("Test jwerty.fire, firing correct events to an eventListener", function () 
     jwerty.fire('⌃+shift+F1', this.input);
 });
 
+test("Test context passing defaulting to window", function () {
+    expect(1);
+    
+    jwerty.key('space', function () {
+        ok(this.__proto__.constructor.toString().match(/DOMWindow/), 'Expects this to be window');
+    }, this.input);
+    buildEvent(32, false, false, false, false, this.input);
+});
+
+test("Test context passing when context is set", function () {
+    expect(1);
+    
+    jwerty.key('space', function () {
+        ok(this.myContext, 'Expects this to be set to passed obj');
+    }, { myContext: true }, this.input);
+    buildEvent(32, false, false, false, false, this.input);
+});
+
+test("Test context passing to bound function context of event function", function () {
+    expect(1);
+    
+    var event = jwerty.event('space', function () {
+        ok(this.myContext, 'Expects this to be set to passed obj');
+    });
+    
+    this.input.addEventListener('keydown', function () {
+        event.apply({ myContext: true }, arguments);
+    });
+    
+    buildEvent(32, false, false, false, false, this.input);
+});
+
+
 test("Test key binding without element, binding to `document`", function () {
     expect(1);
     

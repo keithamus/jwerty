@@ -337,7 +337,7 @@
                     // one in sequence), then fire the callback
                     } else {
                         returnValue = callbackFunction.call(
-                            callbackContext || global, event, jwertyCodeIs);
+                            callbackContext || this, event, jwertyCodeIs);
                         
                         // If the callback returned false, then we should run
                         // preventDefault();
