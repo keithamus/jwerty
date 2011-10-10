@@ -6,8 +6,12 @@
 	<link rel="stylesheet" href="qunit/qunit/qunit.css" type="text/css" media="screen">
 	<script type="text/javascript" src="qunit/qunit/qunit.js"></script>
     <script type="text/javascript">
-        window.listenForKeyup = function(el, fn) {
-            el.addEventListener('keydown', fn);
+        window.listenForKey = function(el, fn) {
+            if(el.addEventListener) {
+                el.addEventListener('keydown', fn, false);
+            } else if(el.attatchEvent) {
+                el.attachEvent('keydown', fn);
+            }
         }
     </script>
     

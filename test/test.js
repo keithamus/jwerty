@@ -28,11 +28,7 @@ module('jwerty', {
         }
         this.input = document.createElement('input');
         var self = this;
-        if (window.jQuery || window.Zepto) {
-            $(this.input).bind('keydown', function () { ++self.keyupCount; });
-        } else {
-            this.input.addEventListener('keydown', function () { ++self.keyupCount; });
-        }
+        listenForKey(this.input, function () { ++self.keyupCount; });
     }
     
 });
@@ -521,7 +517,7 @@ test("Test jwerty.fire, firing correct events to an eventListener", function () 
         shiftKey: true
     };
     
-    listenForKeyup(this.input, function (e) {
+    listenForKey(this.input, function (e) {
         for (var i in event) {
             equal(event[i], e[i], 'Event contains expected ' + i);
         }
