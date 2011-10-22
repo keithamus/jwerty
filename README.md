@@ -17,49 +17,71 @@ The Short version
 
 Use `jwerty.key` to bind your callback to a key combo (global shortcuts)
 
-    jwerty.key('ctrl+shift+P', function () { [...] });
-    jwerty.key('⌃+⇧+P', function () { [...] });
+```javascript
+jwerty.key('ctrl+shift+P', function () { [...] });
+jwerty.key('⌃+⇧+P', function () { [...] });
+```
     
 Specify optional keys...
 
-    jwerty.key('⌃+⇧+P/⌘+⇧+P', function () { [...] });
-    
+```javascript
+jwerty.key('⌃+⇧+P/⌘+⇧+P', function () { [...] });
+```
+
 or key sequences.
 
-    jwerty.key('↑,↑,↓,↓,←,→,←,→,B,A,↩', function () { [...] });
+```javascript
+jwerty.key('↑,↑,↓,↓,←,→,←,→,B,A,↩', function () { [...] });
+```
 
 You can also (since 0.3) specify regex-like ranges:
 
-    jwerty.key('ctrl+[a-c]', function () { [...] }); // fires for ctrl+a,ctrl+b or ctrl+c
-    
+```javascript
+jwerty.key('ctrl+[a-c]', function () { [...] }); // fires for ctrl+a,ctrl+b or ctrl+c
+```
+
 Pass in a context to bind your callback:
 
-    jwerty.key('⌃+⇧+P/⌘+⇧+P', function () { [...] }, this);
-    
+```javascript
+jwerty.key('⌃+⇧+P/⌘+⇧+P', function () { [...] }, this);
+```
+
 Pass in a selector to bind a shortcut local to that element
 
-    jwerty.key('⌃+⇧+P/⌘+⇧+P', function () { [...] }, this, '#myinput');
-    
+```javascript
+jwerty.key('⌃+⇧+P/⌘+⇧+P', function () { [...] }, this, '#myinput');
+```
+
 Pass in a selector's context, similar to jQuery's $('selector', 'scope')
 
-    jwerty.key('⌃+⇧+P/⌘+⇧+P', function () { [...] }, this, 'input.email', '#myForm');
-    
+```javascript
+jwerty.key('⌃+⇧+P/⌘+⇧+P', function () { [...] }, this, 'input.email', '#myForm');
+```
+
 If you're bining to a selector, you can also ommit the function context:
 
-    jwerty.key('⌃+⇧+P/⌘+⇧+P', function () { [...] }, 'input.email', '#myForm');
-    
+```javascript
+jwerty.key('⌃+⇧+P/⌘+⇧+P', function () { [...] }, 'input.email', '#myForm');
+```
+
 Use `jwerty.event` as a decorator, to bind events your own way:
     
-    $('#myinput').bind('keydown', jwerty.event('⌃+⇧+P/⌘+⇧+P', function () { [...] }));
-    
+```javascript
+$('#myinput').bind('keydown', jwerty.event('⌃+⇧+P/⌘+⇧+P', function () { [...] }));
+```
+
 Use `jwerty.is` to check a keyCombo against a keyboard event:
 
-    function (event) {
-        if ( jwerty.is('⌃+⇧+P', event) ) {
-            [...]
-        }
+```javascript
+function (event) {
+    if ( jwerty.is('⌃+⇧+P', event) ) {
+        [...]
     }
+}
+```
 
 Or use `jwerty.fire` to send keyboard events to other places:
 
-    jwerty.fire('enter', 'input:first-child', '#myForm');
+```javascript
+jwerty.fire('enter', 'input:first-child', '#myForm');
+```
