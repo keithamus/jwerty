@@ -379,7 +379,7 @@
                 // For each property in the jwertyCode object, compare to `event`
                 for (var p in jwertyCode[n]) {
                     // ...except for jwertyCode.jwertyCombo...
-                    if (p !== 'jwertyCombo' && event[p] !== jwertyCode[n][p]) returnValue = false;
+                    if (p !== 'jwertyCombo' && event[p] != jwertyCode[n][p]) returnValue = false;
                 }
                 // If this jwertyCode optional wasn't falsey, then we can return early.
                 if (returnValue !== false) return returnValue;
