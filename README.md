@@ -1,6 +1,7 @@
-jwerty
+[jwerty](http://keithcirkel.co.uk/jwerty/)
 ======
 ##### Awesome handling of keyboard events
+###### http://keithcirkel.co.uk/jwerty/
 
 jwerty is a JS lib which allows you to bind, fire and assert key combination
 strings against elements and events. It normalises the poor std api into
