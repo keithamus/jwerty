@@ -97,7 +97,7 @@
             // Insert key, or ins
             ins: 45, insert: 45,
             // Delete key, on Mac: ⌫ (Delete)
-            del: 45, 'delete': 45,
+            del: 46, 'delete': 46,
             
             // Left Arrow Key, or ←
             '←': 37, left: 37, 'arrow-left': 37,
