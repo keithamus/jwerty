@@ -115,7 +115,8 @@
             '+': 107, 'plus': 107,
             // Num-Subtract, or -
             '-': 109, subtract: 109,
-            //';': 186, //???
+            // Semicolon
+            ';': 186, semicolon:186,
             // = or equals
             '=': 187, 'equals': 187,
             // Comma, or ,
