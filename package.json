@@ -1,18 +1,38 @@
 {
-   "name": "jwerty",
-   "version": "0.3.0",
-   "description": "Awesome handling of keyboard events",
-   "homepage": "http://keithamus.github.com/jwerty",
-   "keywords": [ "key", "dom", "keyup", "KeyboardEvent", "addEventListener", "jQuery", "Zepto", "browser", "ender" ],
-   "maintainers": [
-        {
-            "name": "Keith Cirkel",
-            "email": "jwerty@keithcirkel.co.uk",
-            "web": "http://keithcirkel.co.uk" 
-        } 
-   ],
-   "licenses": [ { "type": "MIT", "url": "http://www.opensource.org/licenses/mit-license.php" } ],
-   "repositories": [ { "type": "git", "url": "https://github.com/keithamus/jwerty" } ],
-   "main": "./jwerty.js",
-   "ender": "./jwerty.enderBridge.js"
+  "name": "jwerty",
+  "version": "0.3.2",
+  "description": "Awesome handling of keyboard events",
+  "homepage": "http://keithamus.github.com/jwerty",
+  "keywords": [
+    "key",
+    "dom",
+    "keyup",
+    "KeyboardEvent",
+    "addEventListener",
+    "jQuery",
+    "Zepto",
+    "browser",
+    "ender"
+  ],
+  "maintainers": [
+    {
+      "name": "Keith Cirkel",
+      "email": "jwerty@keithcirkel.co.uk",
+      "web": "http://keithcirkel.co.uk"
+    }
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/keithamus/jwerty"
+    }
+  ],
+  "main": "./jwerty.js",
+  "ender": "./jwerty.enderBridge.js"
 }
