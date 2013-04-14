@@ -2,8 +2,8 @@ The jwertyCode
 ==============
 
 All jwerty events will require a jwertyCode in some way. jwertyCodes can be
-passed as strings, or arrays, strings being the easiest way to express a combo.
-A jwertyCode string, should look similar to this:
+passed as strings or arrays, strings being the easiest way to express a combo.
+A jwertyCode string should look similar to this:
 
     '⌃+⇧+P/⌘+⇧+P, X'
 
@@ -21,11 +21,11 @@ would use the `/` key to separate the two:
     'ctrl+shift+p/cmd+shift+P'
 
 If you wanted to only fire an event when the user has typed ctrl+shift+p
-followed by the P key, on it's own again, then you need to use the `,` key, like
+followed by the P key on it's own again, using a `,` to separate them, like
 so:
 
     'ctrl+shift+p, p'
-    
+
 You could also mix sequences and optionals:
 
     'ctrl+shift+p/cmd+shift+p, p'
@@ -39,7 +39,7 @@ Because these are worked out on the keyboard keycodes, they'll work many types
 of ranges, such as:
 
     '[f1-f11], [num-3-num-7], [a-c], [g-f], [←-↓]' // (the last one matches all arrow codes)
-    
+
 If you have a complex pattern, it may be more readable to use an array literal
 to express the combination. If you express it as an array, then the top level
 array will delemit a sequence, while each value in the array can be a string,
@@ -49,7 +49,7 @@ In other words, the following are the same:
     [['ctrl+shift+p', 'cmd+shift+p'], 'p'] OR 'ctrl+shift+p/cmd+shift+p, p'
 
 --------------------------------------------------------------------------------
-    
+
 jwerty.key
 ==========
 
@@ -65,8 +65,8 @@ set to `callbackContext` inside the `callbackFunction` function.
  - If `callbackFunction` returns `false` then preventDefault() will be
    called for the event, in other words - what the browser normally does when
    this key is pressed will not happen.
-   
- - If `callbackFunction` can be a boolen (`true` or `false`), rather than an
+
+ - If `callbackFunction` can be a boolean (`true` or `false`), rather than an
    actual function. If it is a boolean, it will be treated like a function that
    instantly returns that value. This is useful if you just want to disable a
    key, for example: `jwerty.key('ctrl+V', false)` will disable ctrl+V's default
@@ -92,15 +92,15 @@ within `selectorContext`, similar to jQuery's `$('selector', 'context')`.
 
     // prevents 'ctrl+shift+p''s default action
     jwerty.key('ctrl+shift+p', false);
-    
+
     // outputs "print!" to the console when pressed.
     jwerty.key('ctrl+shift+p', function () { console.log('print!') });
-    
+
     // will prevent the shortcut from running, only when '#myInput' is in focus
     jwerty.key('ctrl+shift+p', false, '#myInput');
 
 --------------------------------------------------------------------------------
-    
+
 jwerty.event
 ==========
 
@@ -119,28 +119,28 @@ keyword `this` will be set to `callbackContext` inside the
  - If `callbackFunction` returns `false` then preventDefault() will be
    called for the event, in other words - what the browser normally does when
    this key is pressed will not happen.
-   
- - If `callbackFunction` can be a boolen (`true` or `false`), rather than an
+
+ - If `callbackFunction` can be a boolean (`true` or `false`), rather than an
    actual function. If it is a boolean, it will be treated like a function that
    instantly returns that value. This is useful if you just want to disable a
    key, for example: `jwerty.key('ctrl+V', false)` will disable ctrl+V's default
    behaviour.
-   
+
 #### Example Usage
 
     // prevents pasting in #myinput
     $('#myinput').bind('keydown', jwerty.event('ctrl+v/cmd+v', false));
-    
+
     // great to use with Backbone JS view events:
     events: {
         'keyup input': 'keyupInput'
     },
     keyupInput: jwerty.event('enter', function () {
         this.submit();
-    }),  
+    }),
 
 --------------------------------------------------------------------------------
-    
+
 jwerty.is
 ==========
 
@@ -162,9 +162,9 @@ If they don't, `jwerty.is` will return `false`.
    try to match `d` and so on.
 
  - If `jwertyCode` includes optionals (e.g 'ctrl+shift+p/cmd+shift+p') it
-   will look at both, and if either return match then the return value will be
+   will look at both, and if either return a match then the return value will be
    `true`.
-   
+
 #### Example Usage
 
     // add "pasted" class when ctrl+v/cmd+v is pressed
@@ -173,9 +173,9 @@ If they don't, `jwerty.is` will return `false`.
             this.addClass('pasted');
         }
     });
-   
+
 --------------------------------------------------------------------------------
-    
+
 jwerty.fire
 ==========
 
@@ -193,14 +193,14 @@ search for `selector` within `selectorContext`, similar to jQuery's
    element object, or a Zepto element object, or an Ender element object.
  - `selectorContext` has the same rules as `selector`, it can be a
    string, DOM element or jQuery/Zepto/Ender element object.
-   
+
 #### Example Usage
 
     // fire 'a' on body
     jwerty.fire('a');
-    
+
     // fire 'a' on #myform input.name
     jwerty.fire('a, b', 'input.name', '#myForm');
-    
+
     // fire 'b' on #myform input.name
     jwerty.fire('a, b', 'input.name', '#myForm', 2);
