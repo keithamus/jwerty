@@ -17,11 +17,12 @@
 (function (global, exports) {
 
     // Helper methods & vars:
-    var $d = global.document
-    ,   $ = (global.jQuery || global.Zepto || global.ender || $d)
-    ,   $$
-    ,   $b
-    ,   ke = 'keydown';
+    var $d = global.document,
+        $ = (global.jQuery || global.Zepto || global.ender || $d),
+        $$, // Element selector function
+        $b, // Event binding function
+        $f, // Event firing function
+        ke = 'keydown';
 
     function realTypeOf(v, s) {
         return (v === null) ? s === 'null'
@@ -34,20 +35,19 @@
         $$ = function (selector, context) {
             return selector ? $.querySelector(selector, context || $) : $;
         };
-
         $b = function (e, fn) { e.addEventListener(ke, fn, false); };
         $f = function (e, jwertyEv) {
-            var ret = document.createEvent('Event')
-            ,   i;
+            var ret = $d.createEvent('Event'),
+            i;
 
             ret.initEvent(ke, true, true);
 
             for (i in jwertyEv) ret[i] = jwertyEv[i];
 
             return (e || $).dispatchEvent(ret);
-        }
+        };
     } else {
-        $$ = function (selector, context, fn) { return $(selector || $d, context); };
+        $$ = function (selector, context) { return $(selector || $d, context); };
         $b = function (e, fn) { $(e).bind(ke + '.jwerty', fn); };
         $f = function (e, ob) { $(e || $d).trigger($.Event(ke, ob)); };
     }
@@ -61,130 +61,187 @@
         // MOD aka toggleable keys
         mods: {
             // Shift key, ⇧
-            '⇧': 16, shift: 16,
+            '⇧': 16,
+            shift: 16,
             // CTRL key, on Mac: ⌃
-            '⌃': 17, ctrl: 17,
+            '⌃': 17,
+            ctrl: 17,
             // ALT key, on Mac: ⌥ (Alt)
-            '⌥': 18, alt: 18, option: 18,
+            '⌥': 18,
+            alt: 18,
+            option: 18,
             // META, on Mac: ⌘ (CMD), on Windows (Win), on Linux (Super)
-            '⌘': 91, meta: 91, cmd: 91, 'super': 91, win: 91
+            '⌘': 91,
+            meta: 91,
+            cmd: 91,
+            'super': 91,
+            win: 91
         },
 
         // Normal keys
         keys: {
             // Backspace key, on Mac: ⌫ (Backspace)
-            '⌫': 8, backspace: 8,
+            '⌫': 8,
+            backspace: 8,
             // Tab Key, on Mac: ⇥ (Tab), on Windows ⇥⇥
-            '⇥': 9, '⇆': 9, tab: 9,
+            '⇥': 9,
+            '⇆': 9,
+            tab: 9,
             // Return key, ↩
-            '↩': 13, 'return': 13, enter: 13, '⌅': 13,
+            '↩': 13,
+            'return': 13,
+            enter: 13,
+            '⌅': 13,
             // Pause/Break key
-            'pause': 19, 'pause-break': 19,
+            'pause': 19,
+            'pause-break': 19,
             // Caps Lock key, ⇪
-            '⇪': 20, caps: 20, 'caps-lock': 20,
+            '⇪': 20,
+            caps: 20,
+            'caps-lock': 20,
             // Escape key, on Mac: ⎋, on Windows: Esc
-            '⎋': 27, escape: 27, esc: 27,
+            '⎋': 27,
+            escape: 27,
+            esc: 27,
             // Space key
             space: 32,
             // Page-Up key, or pgup, on Mac: ↖
-            '↖': 33, pgup: 33, 'page-up': 33,
+            '↖': 33,
+            pgup: 33,
+            'page-up': 33,
             // Page-Down key, or pgdown, on Mac: ↘
-            '↘': 34, pgdown: 34, 'page-down': 34,
+            '↘': 34,
+            pgdown: 34,
+            'page-down': 34,
             // END key, on Mac: ⇟
-            '⇟': 35, end: 35,
+            '⇟': 35,
+            end: 35,
             // HOME key, on Mac: ⇞
-            '⇞': 36, home: 36,
+            '⇞': 36,
+            home: 36,
             // Insert key, or ins
-            ins: 45, insert: 45,
+            ins: 45,
+            insert: 45,
             // Delete key, on Mac: ⌫ (Delete)
-            del: 46, 'delete': 46,
+            del: 46,
+            'delete': 46,
 
             // Left Arrow Key, or ←
-            '←': 37, left: 37, 'arrow-left': 37,
+            '←': 37,
+            left: 37,
+            'arrow-left': 37,
             // Up Arrow Key, or ↑
-            '↑': 38, up: 38, 'arrow-up': 38,
+            '↑': 38,
+            up: 38,
+            'arrow-up': 38,
             // Right Arrow Key, or →
-            '→': 39, right: 39, 'arrow-right': 39,
+            '→': 39,
+            right: 39,
+            'arrow-right': 39,
             // Up Arrow Key, or ↓
-            '↓': 40, down: 40, 'arrow-down': 40,
+            '↓': 40,
+            down: 40,
+            'arrow-down': 40,
 
             // odities, printing characters that come out wrong:
             // Num-Multiply, or *
-            '*': 106, star: 106, asterisk: 106, multiply: 106,
+            '*': 106,
+            star: 106,
+            asterisk: 106,
+            multiply: 106,
             // Num-Plus or +
-            '+': 107, 'plus': 107,
+            '+': 107,
+            'plus': 107,
             // Num-Subtract, or -
-            '-': 109, subtract: 109,
+            '-': 109,
+            subtract: 109,
             // Semicolon
-            ';': 186, semicolon:186,
+            ';': 186,
+            semicolon: 186,
             // = or equals
-            '=': 187, 'equals': 187,
+            '=': 187,
+            'equals': 187,
             // Comma, or ,
-            ',': 188, comma: 188,
+            ',': 188,
+            comma: 188,
             //'-': 189, //???
             // Period, or ., or full-stop
-            '.': 190, period: 190, 'full-stop': 190,
+            '.': 190,
+            period: 190,
+            'full-stop': 190,
             // Slash, or /, or forward-slash
-            '/': 191, slash: 191, 'forward-slash': 191,
+            '/': 191,
+            slash: 191,
+            'forward-slash': 191,
             // Tick, or `, or back-quote
-            '`': 192, tick: 192, 'back-quote': 192,
+            '`': 192,
+            tick: 192,
+            'back-quote': 192,
             // Open bracket, or [
-            '[': 219, 'open-bracket': 219,
+            '[': 219,
+            'open-bracket': 219,
             // Back slash, or \
-            '\\': 220, 'back-slash': 220,
+            '\\': 220,
+            'back-slash': 220,
             // Close backet, or ]
-            ']': 221, 'close-bracket': 221,
+            ']': 221,
+            'close-bracket': 221,
             // Apostraphe, or Quote, or '
-            '\'': 222, quote: 222, apostraphe: 222
+            '\'': 222,
+            quote: 222,
+            apostraphe: 222
         }
 
     };
 
     // To minimise code bloat, add all of the NUMPAD 0-9 keys in a loop
-    i = 95, n = 0;
-    while(++i < 106) {
+    var i = 95,
+        n = 0;
+    while (++i < 106) {
         _keys.keys['num-' + n] = i;
         ++n;
     }
 
     // To minimise code bloat, add all of the top row 0-9 keys in a loop
-    i = 47, n = 0;
-    while(++i < 58) {
+    i = 47,
+    n = 0;
+    while (++i < 58) {
         _keys.keys[n] = i;
         ++n;
     }
 
     // To minimise code bloat, add all of the F1-F25 keys in a loop
-    i = 111, n = 1;
-    while(++i < 136) {
+    i = 111,
+    n = 1;
+    while (++i < 136) {
         _keys.keys['f' + n] = i;
         ++n;
     }
 
     // To minimise code bloat, add all of the letters of the alphabet in a loop
-    var i = 64;
-    while(++i < 91) {
+    i = 64;
+    while (++i < 91) {
         _keys.keys[String.fromCharCode(i).toLowerCase()] = i;
     }
 
     function JwertyCode(jwertyCode) {
-        var i
-        ,   c
-        ,   n
-        ,   z
-        ,   keyCombo
-        ,   optionals
-        ,   jwertyCodeFragment
-        ,   rangeMatches
-        ,   rangeI;
+        var i,
+            c,
+            n,
+            z,
+            keyCombo,
+            optionals,
+            jwertyCodeFragment,
+            rangeMatches,
+            rangeI;
 
         // In-case we get called with an instance of ourselves, just return that.
         if (jwertyCode instanceof JwertyCode) return jwertyCode;
 
         // If jwertyCode isn't an array, cast it as a string and split into array.
         if (!realTypeOf(jwertyCode, 'array')) {
-            jwertyCode = (String(jwertyCode)).replace(/\s/g, '').toLowerCase().
-                match(/(?:\+,|[^,])+/g);
+            jwertyCode = (String(jwertyCode)).replace(/\s/g, '').toLowerCase()
+                .match(/(?:\+,|[^,])+/g);
         }
 
         // Loop through each key sequence in jwertyCode
@@ -198,11 +255,12 @@
             }
 
             // Parse the key optionals in this sequence
-            optionals = [], n = jwertyCode[i].length;
+            optionals = [],
+            n = jwertyCode[i].length;
             while (n--) {
 
                 // Begin creating the object for this key combo
-                var jwertyCodeFragment = jwertyCode[i][n];
+                jwertyCodeFragment = jwertyCode[i][n];
 
                 keyCombo = {
                     jwertyCombo: String(jwertyCodeFragment),
@@ -210,7 +268,7 @@
                     ctrlKey: false,
                     altKey: false,
                     metaKey: false
-                }
+                };
 
                 // If jwertyCodeFragment isn't an array then cast as a string
                 // and split it into one.
@@ -228,7 +286,7 @@
                     // Inject either keyCode or ctrl/meta/shift/altKey into keyCombo
                     if (jwertyCodeFragment[z] in _keys.mods) {
                         keyCombo[_modProps[_keys.mods[jwertyCodeFragment[z]]]] = true;
-                    } else if(jwertyCodeFragment[z] in _keys.keys) {
+                    } else if (jwertyCodeFragment[z] in _keys.keys) {
                         keyCombo.keyCode = _keys.keys[jwertyCodeFragment[z]];
                     } else {
                         rangeMatches = jwertyCodeFragment[z].match(/^\[([^-]+\-?[^-]*)-([^-]+\-?[^-]*)\]$/);
@@ -296,16 +354,16 @@
             // Construct a function out of callbackFunction, if it is a boolean.
             if (realTypeOf(callbackFunction, 'boolean')) {
                 var bool = callbackFunction;
-                callbackFunction = function () { return bool; }
+                callbackFunction = function () { return bool; };
             }
 
             jwertyCode = new JwertyCode(jwertyCode);
 
             // Initialise in-scope vars.
-            var i = 0
-            ,   c = jwertyCode.length - 1
-            ,   returnValue
-            ,   jwertyCodeIs;
+            var i = 0,
+                c = jwertyCode.length - 1,
+                returnValue,
+                jwertyCodeIs;
 
             // This is the event listener function that gets returned...
             return function (event) {
@@ -337,7 +395,7 @@
                 // that is, unless this combo was the first in the sequence,
                 // in which case we should reset i to 1.
                 i = jwerty.is(jwertyCode, event) ? 1 : 0;
-            }
+            };
         },
 
         /**
@@ -363,16 +421,15 @@
             jwertyCode = new JwertyCode(jwertyCode);
             // Default `i` to 0
             i = i || 0;
-            // We are only interesting in `i` of jwertyCode;
+            // We are only interested in `i` of jwertyCode;
             jwertyCode = jwertyCode[i];
             // jQuery stores the *real* event in `originalEvent`, which we use
             // because it does annoything stuff to `metaKey`
             event = event.originalEvent || event;
 
             // We'll look at each optional in this jwertyCode sequence...
-            var key
-            ,   n = jwertyCode.length
-            ,   returnValue = false;
+            var n = jwertyCode.length,
+                returnValue = false;
 
             // Loop through each fragment of jwertyCode
             while (n--) {
@@ -417,19 +474,20 @@
             // `callbackContext` is a string or element, and if it is, then the
             // function was called without a context, and `callbackContext` is
             // actually `selector`
-            var realSelector = realTypeOf(callbackContext, 'element') || realTypeOf(callbackContext, 'string') ? callbackContext : selector
+            var realSelector = realTypeOf(callbackContext, 'element') || realTypeOf(callbackContext, 'string') ? callbackContext : selector,
             // If `callbackContext` is undefined, or if we skipped it (and
             // therefore it is `realSelector`), set context to `global`.
-            ,   realcallbackContext = realSelector === callbackContext ? global : callbackContext
+                realcallbackContext = realSelector === callbackContext ? global : callbackContext,
             // Finally if we did skip `callbackContext`, then shift
             // `selectorContext` to the left (take it from `selector`)
-            ,    realSelectorContext = realSelector === callbackContext ? selector : selectorContext;
+                realSelectorContext = realSelector === callbackContext ? selector : selectorContext;
 
             // If `realSelector` is already a jQuery/Zepto/Ender/DOM element,
             // then just use it neat, otherwise find it in DOM using $$()
-            $b(realTypeOf(realSelector, 'element') ?
-               realSelector : $$(realSelector, realSelectorContext)
-            , jwerty.event(jwertyCode, callbackFunction, realcallbackContext));
+            $b(
+                realTypeOf(realSelector, 'element') ? realSelector : $$(realSelector, realSelectorContext),
+                jwerty.event(jwertyCode, callbackFunction, realcallbackContext)
+            );
         },
 
         /**
@@ -455,9 +513,10 @@
 
             // If `realSelector` is already a jQuery/Zepto/Ender/DOM element,
             // then just use it neat, otherwise find it in DOM using $$()
-            $f(realTypeOf(selector, 'element') ?
-                selector : $$(selector, selectorContext)
-            , jwertyCode[realI || 0][0]);
+            $f(
+                realTypeOf(selector, 'element') ? selector : $$(selector, selectorContext),
+                jwertyCode[realI || 0][0]
+            );
         },
 
         KEYS: _keys

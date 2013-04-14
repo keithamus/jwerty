@@ -13,10 +13,14 @@ var buildEvent = function (keyCode, shift, ctrl, alt, meta, dom) {
     ret.metaKey = meta || false;
     dom = dom || document;
 
-    return dom.dispatchEvent(ret);
+    if (document.createEventObject) {
+        return dom.fireEvent('onkeydown', ret);
+    } else {
+        return dom.dispatchEvent(ret);
+    }
 },
 expectKeyEvents = function (count) {
-    equal(QUnit.current_testEnvironment.keyupCount, count, 'Expect ' + count + ' keyup events to fire during test');
+    equal(QUnit['current_testEnvironment'].keyupCount, count, 'Expect ' + count + ' keyup events to fire during test');
 };
 
 module('jwerty', {
@@ -25,7 +29,7 @@ module('jwerty', {
         this.keyupCount = 0;
         this.assertjwerty = function (event, combo) {
             ok(true, 'jwerty event fired for "' + combo + '"');
-        }
+        };
         this.input = document.createElement('input');
         var self = this;
         listenForKey(this.input, function () { ++self.keyupCount; });
@@ -33,7 +37,7 @@ module('jwerty', {
 
 });
 
-test("Test jwerty KEYS contain the correct keys", function () {
+test('Test jwerty KEYS contain the correct keys', function () {
     //Only test number/letter keys as the rest are not really worth testing, as
     // one would have to just do basic assertions with an identical object
     // literal as is in the code
@@ -50,7 +54,7 @@ test("Test jwerty KEYS contain the correct keys", function () {
 
 });
 
-test("Test jwerty initialise", function () {
+test('Test jwerty initialise', function () {
     expect(2);
 
     jwerty.key('a', this.assertjwerty, this.input);
@@ -72,16 +76,19 @@ test("Test jwerty initialise", function () {
     expectKeyEvents(10);
 });
 
-test("Test jwerty fires on boolean callback", function () {
+test('Test jwerty fires on boolean callback', function () {
     expect(1);
 
-    var eventStub  = {}
-    ,   event1 = jwerty.event('a', false, this.input)
-    ,   event2 = jwerty.event('a', true, this.input);
+    var eventStub  = {},
+        event1 = jwerty.event('a', false, this.input),
+        event2 = jwerty.event('a', true, this.input);
 
     eventStub = {
         keyCode: 65,
-        ctrlKey: false, shiftKey: false, altKey: false, metaKey: false,
+        ctrlKey: false,
+        shiftKey: false,
+        altKey: false,
+        metaKey: false,
         preventDefault: function () {
             ok(true, 'Prevent default was fired');
         }
@@ -90,7 +97,7 @@ test("Test jwerty fires on boolean callback", function () {
     event2(eventStub);
 });
 
-test("Test jwerty optional combos", function () {
+test('Test jwerty optional combos', function () {
     expect(3);
 
     jwerty.key([['b', 'a']], this.assertjwerty, this.input);
@@ -114,7 +121,7 @@ test("Test jwerty optional combos", function () {
     expectKeyEvents(11);
 });
 
-test("Test jwerty combos with mod characters", function () {
+test('Test jwerty combos with mod characters', function () {
     expect(3);
 
     jwerty.key([['shift+b', '⌃+⌫']], this.assertjwerty, this.input);
@@ -138,7 +145,7 @@ test("Test jwerty combos with mod characters", function () {
     expectKeyEvents(11);
 });
 
-test("Test jwerty sequence", function () {
+test('Test jwerty sequence', function () {
     expect(3);
 
     jwerty.key([['⌃+⇧+⌥+C'], ['⌃+⇧+⌥+O'], ['⌃+⇧+⌥+O'], ['⌃+⇧+⌥+L']], this.assertjwerty, this.input);
@@ -189,7 +196,7 @@ test("Test jwerty sequence", function () {
     expectKeyEvents(26);
 });
 
-test("Test regex style number expansion", function () {
+test('Test regex style number expansion', function () {
     expect(11);
 
     jwerty.key('[0-9]', this.assertjwerty, this.input);
@@ -229,7 +236,7 @@ test("Test regex style number expansion", function () {
     expectKeyEvents(19);
 });
 
-test("Test regex style number expansion for complex ranges", function () {
+test('Test regex style number expansion for complex ranges', function () {
     expect(11);
 
     jwerty.key('ctrl+[num-0-num-9]', this.assertjwerty, this.input);
@@ -270,7 +277,7 @@ test("Test regex style number expansion for complex ranges", function () {
     expectKeyEvents(19);
 });
 
-test("Test regex style number expansion for complex ranges (letters)", function () {
+test('Test regex style number expansion for complex ranges (letters)', function () {
     expect(4);
 
     jwerty.key('ctrl+[a-c]+shift', this.assertjwerty, this.input);
@@ -291,7 +298,7 @@ test("Test regex style number expansion for complex ranges (letters)", function 
     expectKeyEvents(6);
 });
 
-test("(Most importantly) test the konami code", function () {
+test('(Most importantly) test the konami code', function () {
     expect(2);
 
     jwerty.key([['↑'], ['↑'], ['↓'], ['↓'], ['←'], ['→'], ['←'], ['→'], ['B'], ['a'], ['↩']], this.assertjwerty, this.input);
@@ -369,7 +376,7 @@ test("(Most importantly) test the konami code", function () {
     expectKeyEvents(33);
 });
 
-test("Test jwerty combos as a string", function () {
+test('Test jwerty combos as a string', function () {
     expect(3);
 
     jwerty.key('shift+b/⌃+⌫', this.assertjwerty, this.input);
@@ -393,7 +400,7 @@ test("Test jwerty combos as a string", function () {
     expectKeyEvents(11);
 });
 
-test("Test sequence as a string", function () {
+test('Test sequence as a string', function () {
     expect(3);
 
     jwerty.key('↑,↑,↓,↓,←,→,←,→,B,A,↩/space', this.assertjwerty, this.input);
@@ -494,7 +501,7 @@ test("Test sequence as a string", function () {
     expectKeyEvents(44);
 });
 
-test("Test some weird string combos", function () {
+test('Test some weird string combos', function () {
     expect(2);
 
     jwerty.key('shift++', this.assertjwerty);
@@ -508,7 +515,7 @@ test("Test some weird string combos", function () {
 });
 
 
-test("Test jwerty.fire, firing correct events to an eventListener", function () {
+test('Test jwerty.fire, firing correct events to an eventListener', function () {
     expect(3);
 
     var event = {
@@ -526,7 +533,7 @@ test("Test jwerty.fire, firing correct events to an eventListener", function () 
     jwerty.fire('⌃+shift+F1', this.input);
 });
 
-test("Test context passing defaulting to window", function () {
+test('Test context passing defaulting to window', function () {
     expect(1);
 
     jwerty.key('space', function () {
@@ -535,7 +542,7 @@ test("Test context passing defaulting to window", function () {
     buildEvent(32, false, false, false, false, this.input);
 });
 
-test("Test context passing when context is set", function () {
+test('Test context passing when context is set', function () {
     expect(1);
 
     jwerty.key('space', function () {
@@ -544,7 +551,7 @@ test("Test context passing when context is set", function () {
     buildEvent(32, false, false, false, false, this.input);
 });
 
-test("Test context passing to bound function context of event function", function () {
+test('Test context passing to bound function context of event function', function () {
     expect(1);
 
     var event = jwerty.event('space', function () {
@@ -559,7 +566,7 @@ test("Test context passing to bound function context of event function", functio
 });
 
 
-test("Test key binding without element, binding to `document`", function () {
+test('Test key binding without element, binding to `document`', function () {
     expect(1);
 
     jwerty.key('space', this.assertjwerty);
