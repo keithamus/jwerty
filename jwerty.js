@@ -15,35 +15,35 @@
  *
  */
 (function (global, exports) {
-    
+
     // Helper methods & vars:
     var $d = global.document
     ,   $ = (global.jQuery || global.Zepto || global.ender || $d)
     ,   $$
     ,   $b
     ,   ke = 'keydown';
-    
+
     function realTypeOf(v, s) {
         return (v === null) ? s === 'null'
         : (v === undefined) ? s === 'undefined'
         : (v.is && v instanceof $) ? s === 'element'
         : Object.prototype.toString.call(v).toLowerCase().indexOf(s) > 7;
     }
-    
+
     if ($ === $d) {
         $$ = function (selector, context) {
             return selector ? $.querySelector(selector, context || $) : $;
         };
-        
+
         $b = function (e, fn) { e.addEventListener(ke, fn, false); };
         $f = function (e, jwertyEv) {
             var ret = document.createEvent('Event')
             ,   i;
-            
+
             ret.initEvent(ke, true, true);
-            
+
             for (i in jwertyEv) ret[i] = jwertyEv[i];
-            
+
             return (e || $).dispatchEvent(ret);
         }
     } else {
@@ -51,13 +51,13 @@
         $b = function (e, fn) { $(e).bind(ke + '.jwerty', fn); };
         $f = function (e, ob) { $(e || $d).trigger($.Event(ke, ob)); };
     }
-    
+
     // Private
     var _modProps = { 16: 'shiftKey', 17: 'ctrlKey', 18: 'altKey', 91: 'metaKey' };
-    
+
     // Generate key mappings for common keys that are not printable.
     var _keys = {
-        
+
         // MOD aka toggleable keys
         mods: {
             // Shift key, ⇧
@@ -69,7 +69,7 @@
             // META, on Mac: ⌘ (CMD), on Windows (Win), on Linux (Super)
             '⌘': 91, meta: 91, cmd: 91, 'super': 91, win: 91
         },
-        
+
         // Normal keys
         keys: {
             // Backspace key, on Mac: ⌫ (Backspace)
@@ -98,7 +98,7 @@
             ins: 45, insert: 45,
             // Delete key, on Mac: ⌫ (Delete)
             del: 46, 'delete': 46,
-            
+
             // Left Arrow Key, or ←
             '←': 37, left: 37, 'arrow-left': 37,
             // Up Arrow Key, or ↑
@@ -107,7 +107,7 @@
             '→': 39, right: 39, 'arrow-right': 39,
             // Up Arrow Key, or ↓
             '↓': 40, down: 40, 'arrow-down': 40,
-            
+
             // odities, printing characters that come out wrong:
             // Num-Multiply, or *
             '*': 106, star: 106, asterisk: 106, multiply: 106,
@@ -126,7 +126,7 @@
             '.': 190, period: 190, 'full-stop': 190,
             // Slash, or /, or forward-slash
             '/': 191, slash: 191, 'forward-slash': 191,
-            // Tick, or `, or back-quote 
+            // Tick, or `, or back-quote
             '`': 192, tick: 192, 'back-quote': 192,
             // Open bracket, or [
             '[': 219, 'open-bracket': 219,
@@ -137,36 +137,36 @@
             // Apostraphe, or Quote, or '
             '\'': 222, quote: 222, apostraphe: 222
         }
-        
+
     };
-    
+
     // To minimise code bloat, add all of the NUMPAD 0-9 keys in a loop
     i = 95, n = 0;
     while(++i < 106) {
         _keys.keys['num-' + n] = i;
         ++n;
     }
-    
+
     // To minimise code bloat, add all of the top row 0-9 keys in a loop
     i = 47, n = 0;
     while(++i < 58) {
         _keys.keys[n] = i;
         ++n;
     }
-    
+
     // To minimise code bloat, add all of the F1-F25 keys in a loop
     i = 111, n = 1;
     while(++i < 136) {
         _keys.keys['f' + n] = i;
         ++n;
     }
-    
+
     // To minimise code bloat, add all of the letters of the alphabet in a loop
     var i = 64;
     while(++i < 91) {
         _keys.keys[String.fromCharCode(i).toLowerCase()] = i;
     }
-    
+
     function JwertyCode(jwertyCode) {
         var i
         ,   c
@@ -177,33 +177,33 @@
         ,   jwertyCodeFragment
         ,   rangeMatches
         ,   rangeI;
-        
+
         // In-case we get called with an instance of ourselves, just return that.
         if (jwertyCode instanceof JwertyCode) return jwertyCode;
-        
+
         // If jwertyCode isn't an array, cast it as a string and split into array.
         if (!realTypeOf(jwertyCode, 'array')) {
             jwertyCode = (String(jwertyCode)).replace(/\s/g, '').toLowerCase().
                 match(/(?:\+,|[^,])+/g);
         }
-        
+
         // Loop through each key sequence in jwertyCode
         for (i = 0, c = jwertyCode.length; i < c; ++i) {
-            
+
             // If the key combo at this part of the sequence isn't an array,
             // cast as a string and split into an array.
             if (!realTypeOf(jwertyCode[i], 'array')) {
                 jwertyCode[i] = String(jwertyCode[i])
                     .match(/(?:\+\/|[^\/])+/g);
             }
-            
+
             // Parse the key optionals in this sequence
             optionals = [], n = jwertyCode[i].length;
             while (n--) {
-                
+
                 // Begin creating the object for this key combo
                 var jwertyCodeFragment = jwertyCode[i][n];
-                
+
                 keyCombo = {
                     jwertyCombo: String(jwertyCodeFragment),
                     shiftKey: false,
@@ -211,20 +211,20 @@
                     altKey: false,
                     metaKey: false
                 }
-                
+
                 // If jwertyCodeFragment isn't an array then cast as a string
                 // and split it into one.
                 if (!realTypeOf(jwertyCodeFragment, 'array')) {
                     jwertyCodeFragment = String(jwertyCodeFragment).toLowerCase()
                         .match(/(?:(?:[^\+])+|\+\+|^\+$)/g);
                 }
-                
+
                 z = jwertyCodeFragment.length;
                 while (z--) {
-                    
+
                     // Normalise matching errors
                     if (jwertyCodeFragment[z] === '++') jwertyCodeFragment[z] = '+';
-                    
+
                     // Inject either keyCode or ctrl/meta/shift/altKey into keyCombo
                     if (jwertyCodeFragment[z] in _keys.mods) {
                         keyCombo[_modProps[_keys.mods[jwertyCodeFragment[z]]]] = true;
@@ -239,7 +239,7 @@
                     if (rangeMatches && (rangeMatches[1] in _keys.keys) && (rangeMatches[2] in _keys.keys)) {
                         rangeMatches[2] = _keys.keys[rangeMatches[2]];
                         rangeMatches[1] = _keys.keys[rangeMatches[1]];
-                        
+
                         // Go from match 1 and capture all key-comobs up to match 2
                         for (rangeI = rangeMatches[1]; rangeI < rangeMatches[2]; ++rangeI) {
                             optionals.push({
@@ -250,7 +250,7 @@
                                 keyCode: rangeI,
                                 jwertyCombo: String(jwertyCodeFragment)
                             });
-                            
+
                         }
                         keyCombo.keyCode = rangeI;
                     // Inject either keyCode or ctrl/meta/shift/altKey into keyCombo
@@ -259,15 +259,15 @@
                     }
                 }
                 optionals.push(keyCombo);
-            
+
             }
             this[i] = optionals;
         }
         this.length = i;
         return this;
     }
-    
-    var jwerty = exports.jwerty = {        
+
+    var jwerty = exports.jwerty = {
         /**
          * jwerty.event
          *
@@ -289,27 +289,27 @@
          *      preventDefault()
          *   @param {Object} callbackContext (Optional) The context to call
          *      `callback` with (i.e this)
-         *      
+         *
          */
         event: function (jwertyCode, callbackFunction, callbackContext /*? this */) {
-            
+
             // Construct a function out of callbackFunction, if it is a boolean.
             if (realTypeOf(callbackFunction, 'boolean')) {
                 var bool = callbackFunction;
                 callbackFunction = function () { return bool; }
             }
-            
+
             jwertyCode = new JwertyCode(jwertyCode);
-            
+
             // Initialise in-scope vars.
             var i = 0
             ,   c = jwertyCode.length - 1
             ,   returnValue
             ,   jwertyCodeIs;
-            
+
             // This is the event listener function that gets returned...
             return function (event) {
-                
+
                 // if jwertyCodeIs returns truthy (string)...
                 if ((jwertyCodeIs = jwerty.is(jwertyCode, event, i))) {
                     // ... and this isn't the last key in the sequence,
@@ -322,24 +322,24 @@
                     } else {
                         returnValue = callbackFunction.call(
                             callbackContext || this, event, jwertyCodeIs);
-                        
+
                         // If the callback returned false, then we should run
                         // preventDefault();
                         if (returnValue === false) event.preventDefault();
-                        
+
                         // Reset i for the next sequence to fire.
                         i = 0;
                         return;
                     }
                 }
-                
+
                 // If the event didn't hit this time, we should reset i to 0,
                 // that is, unless this combo was the first in the sequence,
                 // in which case we should reset i to 1.
                 i = jwerty.is(jwertyCode, event) ? 1 : 0;
             }
         },
-        
+
         /**
          * jwerty.is
          *
@@ -357,7 +357,7 @@
          *   @param {KeyboardEvent} event is the KeyboardEvent to assert against
          *   @param {Integer} i (Optional) checks the `i` key in jwertyCode
          *      sequence
-         *      
+         *
          */
         is: function (jwertyCode, event, i /*? 0*/) {
             jwertyCode = new JwertyCode(jwertyCode);
@@ -368,12 +368,12 @@
             // jQuery stores the *real* event in `originalEvent`, which we use
             // because it does annoything stuff to `metaKey`
             event = event.originalEvent || event;
-            
+
             // We'll look at each optional in this jwertyCode sequence...
             var key
             ,   n = jwertyCode.length
             ,   returnValue = false;
-            
+
             // Loop through each fragment of jwertyCode
             while (n--) {
                 returnValue = jwertyCode[n].jwertyCombo;
@@ -387,7 +387,7 @@
             }
             return returnValue;
         },
-        
+
         /**
          * jwerty.key
          *
@@ -410,7 +410,7 @@
          *      or an HTML*Element on which to bind the eventListener
          *   @param {Mixed} selectorContext can be a string, jQuery/Zepto/Ender
          *      object, or an HTML*Element on which to scope the selector
-         *  
+         *
          */
         key: function (jwertyCode, callbackFunction, callbackContext /*? this */, selector /*? document */, selectorContext /*? body */) {
             // Because callbackContext is optional, we should check if the
@@ -424,14 +424,14 @@
             // Finally if we did skip `callbackContext`, then shift
             // `selectorContext` to the left (take it from `selector`)
             ,    realSelectorContext = realSelector === callbackContext ? selector : selectorContext;
-            
+
             // If `realSelector` is already a jQuery/Zepto/Ender/DOM element,
             // then just use it neat, otherwise find it in DOM using $$()
             $b(realTypeOf(realSelector, 'element') ?
                realSelector : $$(realSelector, realSelectorContext)
             , jwerty.event(jwertyCode, callbackFunction, realcallbackContext));
         },
-        
+
         /**
          * jwerty.fire
          *
@@ -447,20 +447,20 @@
          *      or an HTML*Element on which to bind the eventListener
          *   @param {Mixed} selectorContext can be a string, jQuery/Zepto/Ender
          *      object, or an HTML*Element on which to scope the selector
-         *  
+         *
          */
         fire: function (jwertyCode, selector /*? document */, selectorContext /*? body */, i) {
             jwertyCode = new JwertyCode(jwertyCode);
             var realI = realTypeOf(selectorContext, 'number') ? selectorContext : i;
-            
+
             // If `realSelector` is already a jQuery/Zepto/Ender/DOM element,
             // then just use it neat, otherwise find it in DOM using $$()
             $f(realTypeOf(selector, 'element') ?
                 selector : $$(selector, selectorContext)
             , jwertyCode[realI || 0][0]);
         },
-        
+
         KEYS: _keys
     };
-    
+
 }(this, (typeof module !== 'undefined' && module.exports ? module.exports : this)));
