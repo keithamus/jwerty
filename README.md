@@ -9,9 +9,11 @@ something easy to use and clear.
 
 jwerty is a small library, weighing in at around 1.5kb bytes minified and
 gzipped (~3kb minified). jwerty has no dependencies, but is compatible with
-jQuery, Zepto or Ender if you include those packages alongside it.
+[jQuery][jQuery], [Zepto][Zepto], [Ender][Ender] or [CanJS][CanJS] if you
+include those packages alongside it. You can install jwerty via [npm][npm] (for
+use with Ender) or [Bower][Bower].
 
-For detailed docs, please read the README-DETAILED.md file.
+For detailed docs, please read the [README-DETAILED.md](README-DETAILED.md) file.
 
 The Short version
 =================
@@ -22,14 +24,14 @@ Use `jwerty.key` to bind your callback to a key combo (global shortcuts)
 jwerty.key('ctrl+shift+P', function () { [...] });
 jwerty.key('⌃+⇧+P', function () { [...] });
 ```
-    
-Specify optional keys...
+
+Specify optional keys:
 
 ```javascript
 jwerty.key('⌃+⇧+P/⌘+⇧+P', function () { [...] });
 ```
 
-or key sequences.
+or key sequences:
 
 ```javascript
 jwerty.key('↑,↑,↓,↓,←,→,←,→,B,A,↩', function () { [...] });
@@ -47,26 +49,26 @@ Pass in a context to bind your callback:
 jwerty.key('⌃+⇧+P/⌘+⇧+P', function () { [...] }, this);
 ```
 
-Pass in a selector to bind a shortcut local to that element
+Pass in a selector to bind a shortcut local to that element:
 
 ```javascript
 jwerty.key('⌃+⇧+P/⌘+⇧+P', function () { [...] }, this, '#myinput');
 ```
 
-Pass in a selector's context, similar to jQuery's $('selector', 'scope')
+Pass in a selector's context, similar to jQuery's $('selector', 'scope'):
 
 ```javascript
 jwerty.key('⌃+⇧+P/⌘+⇧+P', function () { [...] }, this, 'input.email', '#myForm');
 ```
 
-If you're bining to a selector, you can also ommit the function context:
+If you're binding to a selector and don't need the context, you can ommit it:
 
 ```javascript
 jwerty.key('⌃+⇧+P/⌘+⇧+P', function () { [...] }, 'input.email', '#myForm');
 ```
 
 Use `jwerty.event` as a decorator, to bind events your own way:
-    
+
 ```javascript
 $('#myinput').bind('keydown', jwerty.event('⌃+⇧+P/⌘+⇧+P', function () { [...] }));
 ```
@@ -86,3 +88,10 @@ Or use `jwerty.fire` to send keyboard events to other places:
 ```javascript
 jwerty.fire('enter', 'input:first-child', '#myForm');
 ```
+
+[jQuery]: http://jquery.com/
+[Zepto]:  http://zeptojs.com/
+[Ender]:  http://ender.jit.su/
+[CanJS]:  http://canjs.com/
+[npm]:    https://npmjs.org/
+[Bower]:  http://twitter.github.io/bower/
