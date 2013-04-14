@@ -155,6 +155,11 @@
             // Num-Subtract, or -
             '-': 109,
             subtract: 109,
+            'num-.': 110,
+            'num-period': 110,
+            'num-dot': 110,
+            'num-full-stop': 110,
+            'num-delete': 110,
             // Semicolon
             ';': 186,
             semicolon: 186,
