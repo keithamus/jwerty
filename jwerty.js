@@ -199,19 +199,12 @@
 
     };
 
-    // To minimise code bloat, add all of the NUMPAD 0-9 keys in a loop
-    var i = 95,
+    // To minimise code bloat, add all of the 0-9 and NUMPAD 0-9 keys in a loop
+    var i = 47,
         n = 0;
     while (++i < 106) {
-        _keys.keys['num-' + n] = i;
-        ++n;
-    }
-
-    // To minimise code bloat, add all of the top row 0-9 keys in a loop
-    i = 47,
-    n = 0;
-    while (++i < 58) {
         _keys.keys[n] = i;
+        _keys.keys['num-' + n] = i + 48;
         ++n;
     }
 
