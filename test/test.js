@@ -537,7 +537,7 @@ test('Test context passing defaulting to window', function () {
     expect(1);
 
     jwerty.key('space', function () {
-        ok(this.__proto__.constructor.toString().match(/DOMWindow/), 'Expects this to be window');
+        equal(this, window, 'Expects this to be window');
     }, this.input);
     buildEvent(32, false, false, false, false, this.input);
 });
@@ -545,9 +545,11 @@ test('Test context passing defaulting to window', function () {
 test('Test context passing when context is set', function () {
     expect(1);
 
+    var myContext = { myContext: true };
+
     jwerty.key('space', function () {
-        ok(this.myContext, 'Expects this to be set to passed obj');
-    }, { myContext: true }, this.input);
+        equal(this, myContext, 'Expects this to be set to passed obj');
+    }, myContext, this.input);
     buildEvent(32, false, false, false, false, this.input);
 });
 
