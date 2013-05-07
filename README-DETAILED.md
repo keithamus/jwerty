@@ -89,16 +89,16 @@ within `selectorContext`, similar to jQuery's `$('selector', 'context')`.
    string, DOM element or jQuery/Zepto/Ender element object.
 
 #### Example Usage
+```javascript
+// prevents 'ctrl+shift+p''s default action
+jwerty.key('ctrl+shift+p', false);
 
-    // prevents 'ctrl+shift+p''s default action
-    jwerty.key('ctrl+shift+p', false);
+// outputs "print!" to the console when pressed.
+jwerty.key('ctrl+shift+p', function () { console.log('print!') });
 
-    // outputs "print!" to the console when pressed.
-    jwerty.key('ctrl+shift+p', function () { console.log('print!') });
-
-    // will prevent the shortcut from running, only when '#myInput' is in focus
-    jwerty.key('ctrl+shift+p', false, '#myInput');
-
+// will prevent the shortcut from running, only when '#myInput' is in focus
+jwerty.key('ctrl+shift+p', false, '#myInput');
+```
 --------------------------------------------------------------------------------
 
 jwerty.event
@@ -127,18 +127,18 @@ keyword `this` will be set to `callbackContext` inside the
    behaviour.
 
 #### Example Usage
+```javascript
+// prevents pasting in #myinput
+$('#myinput').bind('keydown', jwerty.event('ctrl+v/cmd+v', false));
 
-    // prevents pasting in #myinput
-    $('#myinput').bind('keydown', jwerty.event('ctrl+v/cmd+v', false));
-
-    // great to use with Backbone JS view events:
-    events: {
-        'keyup input': 'keyupInput'
-    },
-    keyupInput: jwerty.event('enter', function () {
-        this.submit();
-    }),
-
+// great to use with Backbone JS view events:
+events: {
+    'keyup input': 'keyupInput'
+},
+keyupInput: jwerty.event('enter', function () {
+    this.submit();
+}),
+```
 --------------------------------------------------------------------------------
 
 jwerty.is
@@ -166,14 +166,14 @@ If they don't, `jwerty.is` will return `false`.
    `true`.
 
 #### Example Usage
-
-    // add "pasted" class when ctrl+v/cmd+v is pressed
-    $('#myinput').bind('keydown', function () {
-        if (jwerty.is('ctrl+v/cmd+v')) {
-            this.addClass('pasted');
-        }
-    });
-
+```javascript
+// add "pasted" class when ctrl+v/cmd+v is pressed
+$('#myinput').bind('keydown', function () {
+    if (jwerty.is('ctrl+v/cmd+v')) {
+        this.addClass('pasted');
+    }
+});
+```
 --------------------------------------------------------------------------------
 
 jwerty.fire
@@ -195,12 +195,13 @@ search for `selector` within `selectorContext`, similar to jQuery's
    string, DOM element or jQuery/Zepto/Ender element object.
 
 #### Example Usage
+```javascript
+// fire 'a' on body
+jwerty.fire('a');
 
-    // fire 'a' on body
-    jwerty.fire('a');
+// fire 'a' on #myform input.name
+jwerty.fire('a, b', 'input.name', '#myForm');
 
-    // fire 'a' on #myform input.name
-    jwerty.fire('a, b', 'input.name', '#myForm');
-
-    // fire 'b' on #myform input.name
-    jwerty.fire('a, b', 'input.name', '#myForm', 2);
+// fire 'b' on #myform input.name
+jwerty.fire('a, b', 'input.name', '#myForm', 2);
+```
