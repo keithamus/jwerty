@@ -16,9 +16,20 @@
  */
 (function (global, exports) {
 
+    // Try require external librairies in Node.js context
+    function tryRequire(mod) {
+        if (typeof require == 'function' && typeof module !== 'undefined' && module.exports) {
+            try {
+                return require(mod.toLowerCase());
+            } catch (err) {}
+        } else {
+            return global[mod];
+        }
+    }
+
     // Helper methods & vars:
     var $d = global.document,
-        $ = (global.jQuery || global.Zepto || global.ender || $d),
+        $ = (tryRequire('jquery') || tryRequire('zepto') || tryRequire('ender') || $d),
         $$, // Element selector function
         $b, // Event binding function
         $f, // Event firing function
@@ -520,4 +531,4 @@
         KEYS: _keys
     };
 
-}(this, (typeof module !== 'undefined' && module.exports ? module.exports : this)));
+}(typeof global !== 'undefined' && global.window || this, (typeof module !== 'undefined' && module.exports ? module.exports : this)));
