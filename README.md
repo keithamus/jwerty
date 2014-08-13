@@ -3,6 +3,10 @@
 ##### Awesome handling of keyboard events
 ###### http://keithcirkel.co.uk/jwerty/
 
+[![NPM Downloads](http://img.shields.io/npm/dm/jwerty.svg?style=flat)](https://www.npmjs.org/package/jwerty)
+[![Release](http://img.shields.io/github/release/keithamus/jwerty.svg)](https://github.com/keithamus/jwerty/releases)
+[![Gittip donate button](http://img.shields.io/gittip/keithamus.svg?style=flat)](https://www.gittip.com/keithamus/)
+
 jwerty is a JS lib which allows you to bind, fire and assert key combination
 strings against elements and events. It normalises the poor std api into
 something easy to use and clear.
