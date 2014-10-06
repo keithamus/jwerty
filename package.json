@@ -27,12 +27,10 @@
       "url": "http://www.opensource.org/licenses/mit-license.php"
     }
   ],
-  "repositories": [
-    {
-      "type": "git",
-      "url": "https://github.com/keithamus/jwerty"
-    }
-  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/keithamus/jwerty"
+  },
   "main": "./jwerty.js",
   "ender": "./jwerty.enderBridge.js"
 }
