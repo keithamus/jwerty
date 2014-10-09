@@ -2,6 +2,7 @@
 ======
 ##### Awesome handling of keyboard events
 ###### http://keithcirkel.co.uk/jwerty/
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/keithamus/jwerty?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [![NPM Downloads](http://img.shields.io/npm/dm/jwerty.svg?style=flat)](https://www.npmjs.org/package/jwerty)
 [![Release](http://img.shields.io/github/release/keithamus/jwerty.svg)](https://github.com/keithamus/jwerty/releases)
