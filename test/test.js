@@ -574,3 +574,16 @@ test('Test key binding without element, binding to `document`', function () {
     jwerty.key('space', this.assertjwerty);
     buildEvent(32, false, false, false, false);
 });
+
+
+test('Test unbinding', function(){
+    var firings = 0
+    var ub = jwerty.key('space', function(){  firings += 1  });
+    buildEvent(32);
+    buildEvent(32);
+    buildEvent(32);
+    ub.unbind();
+    buildEvent(32);
+    buildEvent(32);
+    equal(firings, 3, 'expected only the 3 events before the unbinding to be heard');
+});

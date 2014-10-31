@@ -72,6 +72,13 @@ If you're binding to a selector and don't need the context, you can ommit it:
 jwerty.key('⌃+⇧+P/⌘+⇧+P', function () { [...] }, 'input.email', '#myForm');
 ```
 
+Calls to `jwerty.key` return a subscription handle that you can use to disconnect the callback
+
+```javascript
+var h = jwerty.key('ctrl+shift+P', function () { [...] })
+h.unbind()
+```
+
 Use `jwerty.event` as a decorator, to bind events your own way:
 
 ```javascript

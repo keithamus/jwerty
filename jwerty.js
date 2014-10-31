@@ -468,7 +468,7 @@
          *   - in other words, the keyword `this` will be set to
          *   `callbackContext` inside the `callbackFunction` function.
          *   returns a subscription handle `h`, by which you may undo the binding
-         *   by calling `h.sever()`
+         *   by calling `h.unbind()`
          *
          *   @param {Mixed} jwertyCode can be an array, or string of key
          *      combinations, which includes optinals and or sequences
@@ -502,7 +502,7 @@
             var callback = jwerty.event(jwertyCode, callbackFunction, realcallbackContext);
             $b( element, callback );
             
-            return {sever:function(){ $u( element, callback ) }};
+            return {unbind:function(){ $u( element, callback ) }};
         },
         
         /**
