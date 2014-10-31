@@ -32,6 +32,7 @@
         $ = (tryRequire('jquery') || tryRequire('zepto') || tryRequire('ender') || $d),
         $$, // Element selector function
         $b, // Event binding function
+        $u, // Event unbinding function
         $f, // Event firing function
         ke = 'keydown';
 
@@ -47,6 +48,7 @@
             return selector ? $.querySelector(selector, context || $) : $;
         };
         $b = function (e, fn) { e.addEventListener(ke, fn, false); };
+        $u = function (e, fn) { e.removeEventListener(ke, fn, false); };
         $f = function (e, jwertyEv) {
             var ret = $d.createEvent('Event'),
             i;
@@ -60,6 +62,7 @@
     } else {
         $$ = function (selector, context) { return $(selector || $d, context); };
         $b = function (e, fn) { $(e).bind(ke + '.jwerty', fn); };
+        $u = function (e, fn) { $(e).unbind(ke + '.jwerty', fn) };
         $f = function (e, ob) { $(e || $d).trigger($.Event(ke, ob)); };
     }
 
@@ -464,6 +467,8 @@
          *   specified then it will be supplied as `callbackFunction`'s context
          *   - in other words, the keyword `this` will be set to
          *   `callbackContext` inside the `callbackFunction` function.
+         *   returns a subscription handle `h`, by which you may undo the binding
+         *   by calling `h.unbind()`
          *
          *   @param {Mixed} jwertyCode can be an array, or string of key
          *      combinations, which includes optinals and or sequences
@@ -493,12 +498,13 @@
 
             // If `realSelector` is already a jQuery/Zepto/Ender/DOM element,
             // then just use it neat, otherwise find it in DOM using $$()
-            $b(
-                realTypeOf(realSelector, 'element') ? realSelector : $$(realSelector, realSelectorContext),
-                jwerty.event(jwertyCode, callbackFunction, realcallbackContext)
-            );
+            var element = realTypeOf(realSelector, 'element') ? realSelector : $$(realSelector, realSelectorContext);
+            var callback = jwerty.event(jwertyCode, callbackFunction, realcallbackContext);
+            $b( element, callback );
+            
+            return {unbind:function(){ $u( element, callback ) }};
         },
-
+        
         /**
          * jwerty.fire
          *

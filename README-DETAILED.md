@@ -72,6 +72,7 @@ set to `callbackContext` inside the `callbackFunction` function.
    key, for example: `jwerty.key('ctrl+V', false)` will disable ctrl+V's default
    behaviour.
 
+
     jwerty.key(jwertyCode, callbackFunction, [callbackContext], [selector, [selectorContext]]);
 
 `jwerty.key` will attach an event listener and fire `callbackFunction` when
@@ -88,6 +89,11 @@ within `selectorContext`, similar to jQuery's `$('selector', 'context')`.
  - `selectorContext` has the same rules as `selector`, it can be a
    string, DOM element or jQuery/Zepto/Ender element object.
 
+
+
+Both variants of this method will return a subscription handle `h`, by which you may undo the binding by calling `h.unbind()`
+
+
 #### Example Usage
 ```javascript
 // prevents 'ctrl+shift+p''s default action
@@ -95,6 +101,12 @@ jwerty.key('ctrl+shift+p', false);
 
 // outputs "print!" to the console when pressed.
 jwerty.key('ctrl+shift+p', function () { console.log('print!') });
+
+// will work only once, then unbind itself
+var subscriptionHandle = jwerty.key('ctrl+alt+k', function(){
+  console.log('working...');
+  subscriptionHandle.unbind();
+});
 
 // will prevent the shortcut from running, only when '#myInput' is in focus
 jwerty.key('ctrl+shift+p', false, '#myInput');
