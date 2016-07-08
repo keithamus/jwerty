@@ -29,7 +29,7 @@
 
     // Helper methods & vars:
     var $d = global.document,
-        $ = (tryRequire('jquery') || tryRequire('zepto') || tryRequire('ender') || $d),
+        $ = (tryRequire('jQuery') || tryRequire('Zepto') || tryRequire('ender') || $d),
         $$, // Element selector function
         $b, // Event binding function
         $u, // Event unbinding function
