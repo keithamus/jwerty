@@ -8,6 +8,8 @@
 [![Release](http://img.shields.io/github/release/keithamus/jwerty.svg)](https://github.com/keithamus/jwerty/releases)
 [![Gittip donate button](http://img.shields.io/gittip/keithamus.svg?style=flat)](https://www.gittip.com/keithamus/)
 
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/ygkcNhfZ9nTDeVM6P8LSGn1C/keithamus/jwerty'>  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/ygkcNhfZ9nTDeVM6P8LSGn1C/keithamus/jwerty.svg' /></a>
+
 jwerty is a JS lib which allows you to bind, fire and assert key combination
 strings against elements and events. It normalises the poor std api into
 something easy to use and clear.
